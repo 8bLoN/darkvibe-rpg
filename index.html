@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DarkVibe RPG</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="game-container">
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- MENU SCREEN -->
+  <div id="menu-screen" class="screen active">
+    <div class="title-wrap">
+      <div class="title-glow">DARKVIBE</div>
+      <h1 class="game-title">DARKVIBE</h1>
+      <p class="game-sub">Rise of Shadows</p>
+      <div class="menu-buttons">
+        <button class="btn-gothic" id="btn-play">NEW GAME</button>
+        <button class="btn-gothic" id="btn-help">HOW TO PLAY</button>
+      </div>
+    </div>
+    <div class="skulls-deco">☠ ☠ ☠</div>
+  </div>
+
+  <!-- HELP SCREEN -->
+  <div id="help-screen" class="screen">
+    <div class="help-box">
+      <h2>HOW TO PLAY</h2>
+      <div class="help-content">
+        <div class="help-col">
+          <h3>Movement & Combat</h3>
+          <p><b>Left Click</b> — Move / Attack enemy</p>
+          <p><b>Right Click</b> — Force move (ignore enemy)</p>
+          <h3>Skills</h3>
+          <p><b>Q</b> — Skill 1</p>
+          <p><b>W</b> — Skill 2</p>
+          <p><b>E</b> — Skill 3</p>
+          <p><b>R</b> — Skill 4</p>
+        </div>
+        <div class="help-col">
+          <h3>Potions</h3>
+          <p><b>F1</b> — Health Potion</p>
+          <p><b>F2</b> — Mana Potion</p>
+          <h3>Other</h3>
+          <p><b>Walk over</b> loot to pick it up</p>
+          <p>Find the <b>stairs</b> to go deeper</p>
+          <p>Defeat the <b>BOSS</b> on level 3</p>
+        </div>
+      </div>
+      <button class="btn-gothic" id="btn-help-back">BACK</button>
+    </div>
+  </div>
+
+  <!-- CLASS SELECTION -->
+  <div id="class-screen" class="screen">
+    <h2 class="screen-title">— CHOOSE YOUR DESTINY —</h2>
+    <div class="class-cards">
+      <div class="class-card" data-class="warrior">
+        <div class="class-portrait warrior-portrait"></div>
+        <h3 class="class-name">WARRIOR</h3>
+        <p class="class-desc">Mighty fighter clad in heavy armor. Devastating melee attacks and unbreakable defense.</p>
+        <div class="stat-bars">
+          <div class="stat-row"><span>HP</span><div class="stat-bar"><div class="stat-fill" style="width:90%"></div></div></div>
+          <div class="stat-row"><span>MP</span><div class="stat-bar"><div class="stat-fill" style="width:25%"></div></div></div>
+          <div class="stat-row"><span>DMG</span><div class="stat-bar"><div class="stat-fill" style="width:65%"></div></div></div>
+          <div class="stat-row"><span>DEF</span><div class="stat-bar"><div class="stat-fill" style="width:90%"></div></div></div>
+        </div>
+        <div class="skills-preview">
+          <span title="Heavy Strike">⚔</span>
+          <span title="Whirlwind">🌀</span>
+          <span title="Battle Cry">📣</span>
+          <span title="Last Stand">🛡</span>
+        </div>
+        <button class="btn-gothic select-btn" data-class="warrior">SELECT</button>
+      </div>
+
+      <div class="class-card" data-class="rogue">
+        <div class="class-portrait rogue-portrait"></div>
+        <h3 class="class-name">ROGUE</h3>
+        <p class="class-desc">Swift shadow assassin. Master of daggers and bows, strikes fast and vanishes.</p>
+        <div class="stat-bars">
+          <div class="stat-row"><span>HP</span><div class="stat-bar"><div class="stat-fill" style="width:55%"></div></div></div>
+          <div class="stat-row"><span>MP</span><div class="stat-bar"><div class="stat-fill" style="width:60%"></div></div></div>
+          <div class="stat-row"><span>DMG</span><div class="stat-bar"><div class="stat-fill" style="width:80%"></div></div></div>
+          <div class="stat-row"><span>DEF</span><div class="stat-bar"><div class="stat-fill" style="width:40%"></div></div></div>
+        </div>
+        <div class="skills-preview">
+          <span title="Quick Shot">🏹</span>
+          <span title="Arrow Rain">☔</span>
+          <span title="Poison Strike">☠</span>
+          <span title="Shadow Step">👤</span>
+        </div>
+        <button class="btn-gothic select-btn" data-class="rogue">SELECT</button>
+      </div>
+
+      <div class="class-card" data-class="mage">
+        <div class="class-portrait mage-portrait"></div>
+        <h3 class="class-name">MAGE</h3>
+        <p class="class-desc">Arcane sorcerer wielding elemental forces. Fragile but devastatingly powerful.</p>
+        <div class="stat-bars">
+          <div class="stat-row"><span>HP</span><div class="stat-bar"><div class="stat-fill" style="width:35%"></div></div></div>
+          <div class="stat-row"><span>MP</span><div class="stat-bar"><div class="stat-fill" style="width:100%"></div></div></div>
+          <div class="stat-row"><span>DMG</span><div class="stat-bar"><div class="stat-fill" style="width:95%"></div></div></div>
+          <div class="stat-row"><span>DEF</span><div class="stat-bar"><div class="stat-fill" style="width:15%"></div></div></div>
+        </div>
+        <div class="skills-preview">
+          <span title="Fireball">🔥</span>
+          <span title="Chain Lightning">⚡</span>
+          <span title="Frost Nova">❄</span>
+          <span title="Teleport">✨</span>
+        </div>
+        <button class="btn-gothic select-btn" data-class="mage">SELECT</button>
+      </div>
+    </div>
+    <button class="btn-gothic btn-back" id="btn-class-back">BACK</button>
+  </div>
+
+  <!-- HUD (shown during gameplay) -->
+  <div id="hud" class="screen">
+    <!-- Left: HP/MP bars -->
+    <div id="bars-left">
+      <div class="bar-group">
+        <span class="bar-label">HP</span>
+        <div class="bar-outer"><div class="bar-fill bar-hp" id="hp-bar"></div></div>
+        <span class="bar-val" id="hp-val">150/150</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-label">MP</span>
+        <div class="bar-outer"><div class="bar-fill bar-mp" id="mp-bar"></div></div>
+        <span class="bar-val" id="mp-val">50/50</span>
+      </div>
+    </div>
+
+    <!-- Center bottom: Skill bar -->
+    <div id="skill-bar">
+      <div class="skill-slot" id="slot-q">
+        <canvas class="skill-icon-canvas" id="icon-q" width="48" height="48"></canvas>
+        <div class="skill-key">Q</div>
+        <div class="skill-cd-overlay" id="cd-q"></div>
+        <div class="skill-tooltip" id="tip-q"></div>
+      </div>
+      <div class="skill-slot" id="slot-w">
+        <canvas class="skill-icon-canvas" id="icon-w" width="48" height="48"></canvas>
+        <div class="skill-key">W</div>
+        <div class="skill-cd-overlay" id="cd-w"></div>
+        <div class="skill-tooltip" id="tip-w"></div>
+      </div>
+      <div class="skill-slot" id="slot-e">
+        <canvas class="skill-icon-canvas" id="icon-e" width="48" height="48"></canvas>
+        <div class="skill-key">E</div>
+        <div class="skill-cd-overlay" id="cd-e"></div>
+        <div class="skill-tooltip" id="tip-e"></div>
+      </div>
+      <div class="skill-slot" id="slot-r">
+        <canvas class="skill-icon-canvas" id="icon-r" width="48" height="48"></canvas>
+        <div class="skill-key">R</div>
+        <div class="skill-cd-overlay" id="cd-r"></div>
+        <div class="skill-tooltip" id="tip-r"></div>
+      </div>
+    </div>
+
+    <!-- Right: potions, info -->
+    <div id="bars-right">
+      <div id="potion-bar">
+        <div class="potion-slot" id="potion-hp">
+          <div class="potion-icon red-pot"></div>
+          <div class="potion-key">F1</div>
+          <div class="potion-count" id="hp-pot-count">3</div>
+        </div>
+        <div class="potion-slot" id="potion-mp">
+          <div class="potion-icon blue-pot"></div>
+          <div class="potion-key">F2</div>
+          <div class="potion-count" id="mp-pot-count">3</div>
+        </div>
+      </div>
+      <div id="info-panel">
+        <div id="player-class-name"></div>
+        <div id="player-level-text">LVL 1</div>
+        <div id="gold-text">Gold: 0</div>
+        <div id="floor-text">Floor: 1</div>
+      </div>
+    </div>
+
+    <!-- XP bar at very bottom -->
+    <div id="xp-bar-wrap">
+      <div class="bar-outer xp-outer"><div class="bar-fill bar-xp" id="xp-bar"></div></div>
+    </div>
+
+    <!-- Message log -->
+    <div id="msg-log"></div>
+
+    <!-- Minimap -->
+    <canvas id="minimap" width="160" height="160"></canvas>
+  </div>
+
+  <!-- LEVEL UP POPUP -->
+  <div id="levelup-popup" class="screen popup-overlay">
+    <div class="popup-box">
+      <h2 class="popup-title">LEVEL UP!</h2>
+      <p id="levelup-info">You reached level 2!</p>
+      <p class="popup-sub">Choose a stat to increase:</p>
+      <div class="stat-choice-grid">
+        <button class="btn-gothic stat-choice" data-stat="str">
+          <span class="stat-icon">⚔</span>
+          <span class="stat-name">STRENGTH</span>
+          <span class="stat-desc">+Damage</span>
+        </button>
+        <button class="btn-gothic stat-choice" data-stat="vit">
+          <span class="stat-icon">❤</span>
+          <span class="stat-name">VITALITY</span>
+          <span class="stat-desc">+Max HP</span>
+        </button>
+        <button class="btn-gothic stat-choice" data-stat="ene">
+          <span class="stat-icon">✨</span>
+          <span class="stat-name">ENERGY</span>
+          <span class="stat-desc">+Max MP</span>
+        </button>
+        <button class="btn-gothic stat-choice" data-stat="dex">
+          <span class="stat-icon">💨</span>
+          <span class="stat-name">DEXTERITY</span>
+          <span class="stat-desc">+Speed & Crit</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME OVER -->
+  <div id="gameover-screen" class="screen">
+    <div class="end-box">
+      <div class="skull-big">☠</div>
+      <h2 class="end-title red-title">YOU DIED</h2>
+      <p id="gameover-info"></p>
+      <div class="end-buttons">
+        <button class="btn-gothic" id="btn-retry">RETRY</button>
+        <button class="btn-gothic" id="btn-go-menu">MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VICTORY -->
+  <div id="victory-screen" class="screen">
+    <div class="end-box">
+      <div class="crown-big">♛</div>
+      <h2 class="end-title gold-title">VICTORY!</h2>
+      <p id="victory-info"></p>
+      <button class="btn-gothic" id="btn-play-again">PLAY AGAIN</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/dungeon.js"></script>
+<script src="js/items.js"></script>
+<script src="js/skills.js"></script>
+<script src="js/entities.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
